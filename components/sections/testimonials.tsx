@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Star, ArrowRight } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Star, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from "@/components/section-heading"
 
@@ -31,6 +32,30 @@ const testimonials = [
 ]
 
 export function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
+  // Automatyczne przewijanie co 5 sekund
+  useEffect(() => {
+    if (isPaused) return
+
+    const timer = setInterval(() => {
+      nextSlide()
+    }, 5000)
+
+    return () => clearInterval(timer)
+  }, [isPaused])
+
+  const currentTestimonial = testimonials[currentIndex]
+
   return (
     <section className="relative py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4">
@@ -40,34 +65,98 @@ export function Testimonials() {
           description="Mierzymy nasz sukces przez pryzmat wzrostu marek, które wspieramy."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i}>
-              <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-primary/40">
-                <div className="flex gap-0.5">
-                  {Array.from({ length: 5 }).map((_, s) => (
-                    <Star key={s} className="size-4 fill-primary text-primary" />
+        <div className="mt-14">
+          <Reveal>
+            <div className="relative flex flex-col items-center">
+              {/* Główny kontener opinii */}
+              <div 
+                className="w-full max-w-2xl"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                onTouchStart={() => setIsPaused(true)}
+                onTouchEnd={() => setIsPaused(false)}
+              >
+                <figure className="rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/40 md:p-8">
+                  {/* Gwiazdki */}
+                  <div className="flex justify-center gap-0.5">
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <Star key={s} className="size-4 fill-primary text-primary" />
+                    ))}
+                  </div>
+
+                  {/* Treść opinii */}
+                  <blockquote className="mt-5 text-center text-pretty text-base leading-relaxed text-foreground/90 md:text-lg">
+                    &ldquo;{currentTestimonial.quote}&rdquo;
+                  </blockquote>
+
+                  {/* Autor */}
+                  <figcaption className="mt-6 flex items-center justify-center gap-3 border-t border-border pt-6">
+                    <Image
+                      src={currentTestimonial.avatar}
+                      alt={currentTestimonial.name}
+                      width={44}
+                      height={44}
+                      className="size-11 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="text-sm font-semibold">{currentTestimonial.name}</p>
+                      <p className="text-sm text-muted-foreground">{currentTestimonial.company}</p>
+                    </div>
+                  </figcaption>
+                </figure>
+              </div>
+
+              {/* Wskaźnik strony */}
+              <div className="mt-6 flex items-center justify-center gap-3">
+                <button
+                  onClick={prevSlide}
+                  className="flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-primary hover:text-primary-foreground hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  aria-label="Poprzednia opinia"
+                >
+                  <ChevronLeft className="size-5" />
+                </button>
+
+                <div className="flex gap-1.5">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentIndex(index)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        index === currentIndex
+                          ? 'w-6 bg-primary'
+                          : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                      }`}
+                      aria-label={`Przejdź do opinii ${index + 1}`}
+                    />
                   ))}
                 </div>
-                <blockquote className="mt-5 flex-1 text-pretty leading-relaxed text-foreground/90">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-6">
-                  <Image
-                    src={t.avatar}
-                    alt={t.name}
-                    width={44}
-                    height={44}
-                    className="size-11 rounded-full object-cover"
+
+                <button
+                  onClick={nextSlide}
+                  className="flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-primary hover:text-primary-foreground hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  aria-label="Następna opinia"
+                >
+                  <ChevronRight className="size-5" />
+                </button>
+              </div>
+
+              {/* Wskaźnik autoprzewijania */}
+              <div className="mt-3 flex items-center gap-2">
+                <div className="h-0.5 w-16 overflow-hidden rounded-full bg-muted-foreground/20">
+                  <div 
+                    className="h-full bg-primary transition-all duration-1000 ease-linear"
+                    style={{ 
+                      width: isPaused ? '100%' : '0%',
+                      transitionDuration: isPaused ? '0s' : '5s'
+                    }}
                   />
-                  <div>
-                    <p className="text-sm font-semibold">{t.name}</p>
-                    <p className="text-sm text-muted-foreground">{t.company}</p>
-                  </div>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
+                </div>
+                <span className="text-xs text-muted-foreground">
+                  {isPaused ? '⏸' : '▶'}
+                </span>
+              </div>
+            </div>
+          </Reveal>
         </div>
 
         {/* Link do opinii Google z oceną */}
