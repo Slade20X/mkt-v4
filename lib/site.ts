@@ -25,12 +25,12 @@ export const siteConfig = {
 }
 
 export const navLinks = [
+  { label: "Strona główna", href: "/" },
   { label: "Usługi", href: "/uslugi" },
   { label: "Google Ads", href: "/google-ads" },
   { label: "Meta Ads", href: "/meta-ads" },
   { label: "SEO", href: "/seo" },
   { label: "Strony WWW", href: "/strony-www" },
-  { label: "O nas", href: "/o-nas" },
   { label: "Kontakt", href: "/kontakt" },
 ]
 

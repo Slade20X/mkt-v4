@@ -2,10 +2,9 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Hero } from "@/components/sections/hero"
 import { TrustStats } from "@/components/sections/trust-stats"
+import { TrustedBy } from '@/components/sections/trusted-by'
 import { Services } from "@/components/sections/services"
 import { Process } from "@/components/sections/process"
-import { Results } from "@/components/sections/results"
-import { WhyUs } from "@/components/sections/why-us"
 import { Testimonials } from "@/components/sections/testimonials"
 import { Faq } from "@/components/sections/faq"
 import { CtaSection } from "@/components/cta-section"
@@ -17,10 +16,9 @@ export default function HomePage() {
       <main>
         <Hero />
         <TrustStats />
+       <TrustedBy />
         <Services />
         <Process />
-        <Results />
-        <WhyUs />
         <Testimonials />
         <Faq />
         <CtaSection />
@@ -29,3 +27,4 @@ export default function HomePage() {
     </>
   )
 }
+
