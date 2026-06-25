@@ -32,7 +32,9 @@ export function JsonLd() {
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "ul. Długa 1",
       addressLocality: "Gdańsk",
+      postalCode: "80-001",
       addressCountry: "PL",
     },
     geo: {
