@@ -13,21 +13,21 @@ const testimonials = [
       'Współpraca z MKT Lab to była świetna decyzja. W ciągu kilku miesięcy udało się znacząco zwiększyć sprzedaż i poprawić ROAS.',
     name: 'Anna W.',
     company: 'CEO',
-    avatar: '/person.jpg',
+    avatar: '/person.webp',
   },
   {
     quote:
       'Pełen profesjonalizm i świetne podejście do klienta. MKT Lab zajęło się naszymi kampaniami Google Ads i Meta Ads, dzięki czemu liczba klientów wzrosła.',
     name: 'Robert C.',
     company: 'CEO',
-    avatar: '/person.jpg',
+    avatar: '/person.webp',
   },
   {
     quote:
       'Bardzo dobra komunikacja, regularne raporty i przede wszystkim realne wyniki.',
     name: 'Marcin R.',
     company: 'Founder',
-    avatar: '/person.jpg',
+    avatar: '/person.webp',
   },
 ]
 
