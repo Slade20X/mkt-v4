@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
     // Wyślij email
     const { data, error } = await resend.emails.send({
-      from: 'MKT Lab <kontakt@mktlab.pl>', // Zmień na swój email
+      from: 'MKT Lab <mktlab.biuro@gmail.com>', // Zmień na swój email
       to: ['mktlab.biuro@gmail.com'],
       subject: `Nowa wiadomość z formularza kontaktowego od ${name}`,
       replyTo: email,
