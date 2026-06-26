@@ -8,9 +8,9 @@ import { CtaSection } from "@/components/cta-section"
 import { Reveal, RevealGroup } from "@/components/reveal"
 
 export const metadata: Metadata = {
-  title: "O nas — agencja marketingowa MKT Lab z Gdańska",
+  title: "O nas - agencja marketingowa MKT Lab z Gdańska",
   description:
-    "Poznaj MKT Lab — agencję marketingową z Gdańska. Zespół specjalistów od performance marketingu, SEO i stron WWW, który skupia się na realnych wynikach.",
+    "Poznaj MKT Lab - agencję marketingową z Gdańska. Zespół specjalistów od performance marketingu, SEO i stron WWW, który skupia się na realnych wynikach.",
   alternates: { canonical: "/o-nas" },
 }
 

@@ -5,7 +5,7 @@ import { ServiceDetail } from "@/components/service-detail"
 const service = services.find((s) => s.slug === "seo")!
 
 export const metadata: Metadata = {
-  title: "SEO Gdańsk — pozycjonowanie stron internetowych",
+  title: "SEO Gdańsk - pozycjonowanie stron internetowych",
   description:
     "Profesjonalne pozycjonowanie stron (SEO) w Gdańsku i całej Polsce. Audyt techniczny, content i link building, które budują stały ruch organiczny i sprzedaż.",
   alternates: { canonical: "/seo" },

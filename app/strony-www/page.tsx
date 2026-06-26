@@ -5,7 +5,7 @@ import { ServiceDetail } from "@/components/service-detail"
 const service = services.find((s) => s.slug === "strony-www")!
 
 export const metadata: Metadata = {
-  title: "Strony internetowe Gdańsk — nowoczesne strony i sklepy WWW",
+  title: "Strony internetowe Gdańsk - nowoczesne strony i sklepy WWW",
   description:
     "Projektujemy szybkie, nowoczesne strony internetowe i sklepy e-commerce zoptymalizowane pod SEO i konwersję. Technologia Next.js, Gdańsk i cała Polska.",
   alternates: { canonical: "/strony-www" },

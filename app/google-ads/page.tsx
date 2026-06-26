@@ -5,7 +5,7 @@ import { ServiceDetail } from "@/components/service-detail"
 const service = services.find((s) => s.slug === "google-ads")!
 
 export const metadata: Metadata = {
-  title: "Google Ads Gdańsk — kampanie reklamowe w Google",
+  title: "Google Ads Gdańsk - kampanie reklamowe w Google",
   description:
     "Prowadzenie kampanii Google Ads (Search, Performance Max, YouTube) dla firm z Gdańska i całej Polski. Więcej zapytań i sprzedaży przy niższym koszcie konwersji.",
   alternates: { canonical: "/google-ads" },

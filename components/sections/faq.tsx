@@ -15,7 +15,7 @@ export function Faq() {
         <SectionHeading
           eyebrow="FAQ"
           title="Najczęściej zadawane pytania"
-          description="Masz inne pytanie? Napisz do nas — odpowiemy w ciągu jednego dnia roboczego."
+          description="Masz inne pytanie? Napisz do nas - odpowiemy w ciągu jednego dnia roboczego."
         />
 
         <Reveal delay={1} className="mt-12">

@@ -49,7 +49,7 @@ export function SiteHeader() {
           href="/"
           onClick={handleLogoClick}
           className="flex items-center gap-2 rounded-full"
-          aria-label="MKT Lab — strona główna"
+          aria-label="MKT Lab - strona główna"
         >
           <Logo className="h-7 w-auto" />
         </Link>

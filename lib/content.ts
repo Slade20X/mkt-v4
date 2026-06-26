@@ -36,7 +36,7 @@ export const services: Service[] = [
     title: "Meta Ads",
     short: "Reklamy na Facebooku i Instagramie skalujące sprzedaż w e-commerce.",
     description:
-      "Budujemy lejki sprzedażowe na Facebooku i Instagramie — od kreacji, przez targetowanie, po skalowanie najlepiej konwertujących zestawów reklam.",
+      "Budujemy lejki sprzedażowe na Facebooku i Instagramie - od kreacji, przez targetowanie, po skalowanie najlepiej konwertujących zestawów reklam.",
     icon: "Megaphone",
     href: "/meta-ads",
     features: [
@@ -66,7 +66,7 @@ export const services: Service[] = [
     title: "Strony WWW",
     short: "Nowoczesne, szybkie strony i sklepy gotowe na konwersję.",
     description:
-      "Projektujemy i wdrażamy strony oraz sklepy internetowe zoptymalizowane pod prędkość, SEO i sprzedaż — w technologii Next.js i nowoczesnym CMS.",
+      "Projektujemy i wdrażamy strony oraz sklepy internetowe zoptymalizowane pod prędkość, SEO i sprzedaż - w technologii Next.js i nowoczesnym CMS.",
     icon: "Globe",
     href: "/strony-www",
     features: [
@@ -81,7 +81,7 @@ export const services: Service[] = [
     title: "Landing Pages",
     short: "Strony docelowe maksymalizujące konwersję z kampanii.",
     description:
-      "Tworzymy landing page'e dopasowane do kampanii reklamowych, zaprojektowane wokół jednego celu — maksymalnej konwersji.",
+      "Tworzymy landing page'e dopasowane do kampanii reklamowych, zaprojektowane wokół jednego celu - maksymalnej konwersji.",
     icon: "MousePointerClick",
     href: "/uslugi",
     features: [
@@ -144,7 +144,7 @@ export const processSteps = [
     step: "04",
     title: "Skalowanie",
     description:
-      "Optymalizujemy wyniki i skalujemy to, co działa najlepiej — zwiększając sprzedaż przy zachowaniu rentowności.",
+      "Optymalizujemy wyniki i skalujemy to, co działa najlepiej - zwiększając sprzedaż przy zachowaniu rentowności.",
   },
 ]
 
@@ -197,7 +197,7 @@ export const benefits = [
   {
     title: "Nastawienie na wynik",
     description:
-      "Rozliczamy się z efektów — sprzedaży, leadów i ROAS, a nie z liczby kliknięć.",
+      "Rozliczamy się z efektów - sprzedaży, leadów i ROAS, a nie z liczby kliknięć.",
     icon: "Target",
   },
   {

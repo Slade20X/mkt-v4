@@ -11,7 +11,7 @@ import { CtaSection } from "@/components/cta-section"
 import { Reveal, RevealGroup } from "@/components/reveal"
 
 export const metadata: Metadata = {
-  title: "Usługi marketingowe — Performance, Google Ads, Meta Ads, SEO",
+  title: "Usługi marketingowe - Performance, Google Ads, Meta Ads, SEO",
   description:
     "Pełna oferta agencji MKT Lab: Performance Marketing, Google Ads, Meta Ads, SEO, strony WWW, landing pages, audyty, analityka, CRO i remarketing.",
   alternates: { canonical: "/uslugi" },
