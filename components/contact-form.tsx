@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Reveal } from "@/components/reveal"
 import { Icon } from "@/components/icon"
@@ -10,16 +9,47 @@ const services = ["Google Ads", "Meta Ads", "SEO", "Strona WWW", "Kompleksowy ma
 const budgets = ["do 5 000 zł / mies.", "5 000 – 15 000 zł / mies.", "15 000 – 30 000 zł / mies.", "powyżej 30 000 zł / mies."]
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle")
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [service, setService] = useState("")
   const [budget, setBudget] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus("submitting")
-    // Simulate submission — wire up to a real endpoint or server action as needed.
-    await new Promise((r) => setTimeout(r, 900))
-    setStatus("success")
+    setErrorMessage("")
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      company: formData.get("company") as string,
+      phone: formData.get("phone") as string,
+      service: service,
+      budget: budget,
+      message: formData.get("message") as string,
+    }
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || "Wystąpił błąd podczas wysyłania")
+      }
+
+      setStatus("success")
+    } catch (error) {
+      setStatus("error")
+      setErrorMessage(error instanceof Error ? error.message : "Wystąpił błąd. Spróbuj ponownie później.")
+    }
   }
 
   if (status === "success") {
@@ -47,6 +77,7 @@ export function ContactForm() {
           <input
             id="name"
             name="name"
+            type="text"
             required
             autoComplete="name"
             className="form-input"
@@ -65,10 +96,24 @@ export function ContactForm() {
           />
         </Field>
         <Field label="Firma" htmlFor="company">
-          <input id="company" name="company" autoComplete="organization" className="form-input" placeholder="Nazwa firmy" />
+          <input 
+            id="company" 
+            name="company" 
+            type="text"
+            autoComplete="organization" 
+            className="form-input" 
+            placeholder="Nazwa firmy" 
+          />
         </Field>
         <Field label="Telefon" htmlFor="phone">
-          <input id="phone" name="phone" type="tel" autoComplete="tel" className="form-input" placeholder="+48 600 000 000" />
+          <input 
+            id="phone" 
+            name="phone" 
+            type="tel" 
+            autoComplete="tel" 
+            className="form-input" 
+            placeholder="+48 600 000 000" 
+          />
         </Field>
       </div>
 
@@ -107,6 +152,12 @@ export function ContactForm() {
           />
         </Field>
       </div>
+
+      {status === "error" && (
+        <div className="mt-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-600">
+          {errorMessage}
+        </div>
+      )}
 
       <button
         type="submit"
