@@ -8,6 +8,49 @@ import { Icon } from "@/components/icon"
 const services = ["Google Ads", "Meta Ads", "SEO", "Strona WWW", "Kompleksowy marketing", "Inne"]
 const budgets = ["do 5 000 zł / mies.", "5 000 – 15 000 zł / mies.", "15 000 – 30 000 zł / mies.", "powyżej 30 000 zł / mies."]
 
+// Funkcja do wysyłania zdarzenia do Meta Pixel i CAPI
+async function sendMetaEvent(eventData: {
+  eventName: string
+  data?: Record<string, any>
+  emails?: string[]
+  phones?: string[]
+}) {
+  try {
+    // 1. Wyślij przez Pixel (przeglądarka)
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', eventData.eventName, eventData.data || {})
+      console.log(`✅ Meta Pixel: ${eventData.eventName} wysłany`)
+    } else {
+      console.warn('⚠️ Meta Pixel nie jest zainicjalizowany')
+    }
+
+    // 2. Wyślij przez CAPI (serwer) - tylko jeśli mamy email lub telefon
+    if (eventData.emails?.length || eventData.phones?.length) {
+      const response = await fetch('/api/fb-events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          eventName: eventData.eventName,
+          data: eventData.data || {},
+          emails: eventData.emails || [],
+          phones: eventData.phones || [],
+          url: window.location.href,
+        }),
+      })
+
+      if (!response.ok) {
+        console.error('❌ Błąd CAPI:', await response.text())
+      } else {
+        console.log(`✅ Meta CAPI: ${eventData.eventName} wysłany`)
+      }
+    }
+  } catch (error) {
+    console.error('❌ Błąd wysyłki do Meta:', error)
+  }
+}
+
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [service, setService] = useState("")
@@ -20,17 +63,24 @@ export function ContactForm() {
     setErrorMessage("")
 
     const formData = new FormData(e.currentTarget)
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string
+    const company = formData.get("company") as string
+    const phone = formData.get("phone") as string
+    const message = formData.get("message") as string
+
     const data = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      company: formData.get("company") as string,
-      phone: formData.get("phone") as string,
+      name,
+      email,
+      company,
+      phone,
       service: service,
       budget: budget,
-      message: formData.get("message") as string,
+      message,
     }
 
     try {
+      // 1. Wyślij email
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: {
@@ -44,6 +94,20 @@ export function ContactForm() {
       if (!response.ok) {
         throw new Error(result.error || "Wystąpił błąd podczas wysyłania")
       }
+
+      // 2. Po pomyślnej wysyłce - wyślij zdarzenie do Meta
+      await sendMetaEvent({
+        eventName: 'Lead',
+        data: {
+          content_name: 'Formularz kontaktowy',
+          content_category: service || 'Nieokreślone',
+          value: budget || 'Nieokreślony',
+          currency: 'PLN',
+          company: company || 'Nie podano',
+        },
+        emails: [email], // Do CAPI
+        phones: phone ? [phone] : [], // Do CAPI
+      })
 
       setStatus("success")
     } catch (error) {
