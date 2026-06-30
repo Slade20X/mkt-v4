@@ -73,12 +73,26 @@ export default function KontaktPage() {
                 </ul>
               </div>
 
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                Wolisz napisać bezpośrednio?{" "}
-                <Link href={`mailto:${siteConfig.email}`} className="text-accent underline-offset-4 hover:underline">
-                  {siteConfig.email}
+              <div className="space-y-2">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  Wolisz napisać bezpośrednio?{" "}
+                  <Link href={`mailto:${siteConfig.email}`} className="text-accent underline-offset-4 hover:underline">
+                    {siteConfig.email}
+                  </Link>
+                </p>
+                
+                {/* Link do aplikacji o pracę - ten sam kolor co mail */}
+                <Link
+                  href="/aplikacja-o-prace"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors group"
+                >
+                  <span className="relative">
+                    Szukasz pracy? Wyślij zgłoszenie!
+                    <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 bg-accent transition-all duration-300 group-hover:w-full" />
+                  </span>
+                  <Icon name="arrow-right" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-              </p>
+              </div>
             </div>
           </Reveal>
 
